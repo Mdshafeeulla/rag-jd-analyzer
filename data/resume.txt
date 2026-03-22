@@ -1,0 +1,24 @@
+Jane Doe | Data Analyst
+Email: jane@email.com | LinkedIn: linkedin.com/in/janedoe
+
+SKILLS
+Python, SQL, Excel, Power BI, Pandas, NumPy, Matplotlib
+Data Cleaning, EDA, Statistical Analysis, Machine Learning basics
+
+EXPERIENCE
+Data Analyst Intern — ABC Analytics (2023–2024)
+- Built automated reporting pipeline using Python and pandas
+- Created Power BI dashboards for 3 business units
+- Wrote optimized SQL queries reducing report time by 40%
+
+Junior MR — XYZ Pharma (2022–2023)
+- Managed sales data for 50+ territory accounts in Excel
+- Tracked KPIs and weekly targets using custom Python scripts
+
+EDUCATION
+B.Sc Computer Science — State University, 2022
+Relevant coursework: Data Structures, Databases, Statistics
+
+PROJECTS
+Sales Automation Tool — Python, openpyxl, pandas, schedule
+EDA Dashboard — Python, matplotlib, seaborn, Jupyter

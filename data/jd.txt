@@ -1,0 +1,16 @@
+Job Title: Data Analyst
+
+We are looking for a Data Analyst to join our team.
+
+REQUIREMENTS
+- 1-3 years of experience in data analysis
+- Proficient in Python (pandas, numpy)
+- Strong SQL skills for querying databases
+- Experience with data visualization (Power BI or Tableau)
+- Ability to communicate insights to non-technical stakeholders
+
+RESPONSIBILITIES
+- Build and maintain automated data pipelines
+- Create dashboards and reports for business teams
+- Perform exploratory data analysis on large datasets
+- Collaborate with product and engineering teams

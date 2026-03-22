@@ -1,0 +1,20 @@
+# Virtual environment — contains installed packages, not needed
+venv/
+
+# Python cache files — auto-generated, not needed
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Embedding model cache — downloads automatically
+.cache/
+*.bin
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/settings.json
+.idea/
