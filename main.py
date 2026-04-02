@@ -2,6 +2,7 @@
 
 import argparse
 import sys
+from pathlib import Path
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
@@ -13,8 +14,50 @@ from src.pipeline import run_pipeline
 console = Console()
 
 
+def load_pdf(path):
+    """Extract text from a PDF file."""
+    try:
+        from PyPDF2 import PdfReader
+    except ImportError:
+        console.print(
+            "[red]Error: PyPDF2 is required to read PDF files. "
+            "Install it with: pip install PyPDF2[/red]"
+        )
+        sys.exit(1)
+
+    try:
+        reader = PdfReader(path)
+        pages = [page.extract_text() or "" for page in reader.pages]
+        content = "\n".join(pages).strip()
+        if not content:
+            console.print(f"[red]Error: PDF file {path} contains no extractable text.[/red]")
+            sys.exit(1)
+        return content
+    except FileNotFoundError:
+        console.print(f"[red]Error: File not found: {path}[/red]")
+        sys.exit(1)
+    except Exception as e:
+        console.print(f"[red]Error reading PDF file: {e}[/red]")
+        sys.exit(1)
+
+
 def load_file(path):
-    """Read a text file and return its contents."""
+    """Read a text or PDF file and return its contents."""
+    path = Path(path)
+    if not path.exists():
+        console.print(f"[red]Error: File not found: {path}[/red]")
+        sys.exit(1)
+
+    if path.suffix.lower() == ".pdf":
+        return load_pdf(path)
+
+    if path.suffix.lower() not in {".txt", ".md", ".text"}:
+        console.print(
+            f"[red]Error: Unsupported file type {path.suffix}. "
+            "Use .txt, .md or .pdf files.[/red]"
+        )
+        sys.exit(1)
+
     try:
         with open(path, "r", encoding="utf-8") as f:
             content = f.read().strip()
@@ -22,8 +65,19 @@ def load_file(path):
             console.print(f"[red]Error: {path} is empty. Please add content.[/red]")
             sys.exit(1)
         return content
-    except FileNotFoundError:
-        console.print(f"[red]Error: File not found: {path}[/red]")
+    except UnicodeDecodeError:
+        try:
+            with open(path, "r", encoding="utf-16") as f:
+                content = f.read().strip()
+            if not content:
+                console.print(f"[red]Error: {path} is empty. Please add content.[/red]")
+                sys.exit(1)
+            return content
+        except Exception as e:
+            console.print(f"[red]Error reading file {path}: {e}[/red]")
+            sys.exit(1)
+    except Exception as e:
+        console.print(f"[red]Error reading file {path}: {e}[/red]")
         sys.exit(1)
 
 

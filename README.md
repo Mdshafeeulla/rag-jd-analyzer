@@ -44,6 +44,7 @@ job_desc.txt  →  Embedder  →  Similarity Search
 ### Prerequisites
 - Python 3.11+
 - [Ollama](https://ollama.com) installed and running
+- `PyPDF2` for PDF resume/job description support
 
 ### 1. Clone the repo
 ```bash
