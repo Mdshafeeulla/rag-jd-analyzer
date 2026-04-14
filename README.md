@@ -141,7 +141,7 @@ rag-jd-analyzer/
 ## 🔮 Roadmap
 
 - [Completed] PDF resume support
-- [ ] Hybrid BM25 + semantic search
+- [Completed] Hybrid BM25 + semantic search
 - [ ] Batch analyze multiple JDs at once
 - [ ] Flask web interface
 
