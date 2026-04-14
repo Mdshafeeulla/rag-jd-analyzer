@@ -9,13 +9,11 @@ OLLAMA_URL = "http://localhost:11434/api/generate"
 
 def ask_ollama(prompt, model="mistral", temperature=0.3):
     """
-    Send a prompt to the local Ollama LLM and return the response.
+    Sends a prompt to the local Ollama LLM and return the response.
     
     Args:
         prompt      : the full RAG prompt (context + JD + instructions)
-        model       : ollama model name ("mistral", "llama3", "phi3")
-        temperature : 0.0 = focused/deterministic, 1.0 = creative
-                      Use low temp (0.2-0.4) for analysis tasks
+        model       : ollama model name "mistral"
     
     Returns:
         String response from the LLM
