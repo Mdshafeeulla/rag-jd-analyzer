@@ -1,16 +1,58 @@
-Job Title: Data Analyst
+About the job
+Experience: 3.00 + years
 
-We are looking for a Data Analyst to join our team.
+Salary: Confidential (based on experience)
 
-REQUIREMENTS
-- 1-3 years of experience in data analysis
-- Proficient in Python (pandas, numpy)
-- Strong SQL skills for querying databases
-- Experience with data visualization (Power BI or Tableau)
-- Ability to communicate insights to non-technical stakeholders
+Expected Notice Period: 30 Days
 
-RESPONSIBILITIES
-- Build and maintain automated data pipelines
-- Create dashboards and reports for business teams
-- Perform exploratory data analysis on large datasets
-- Collaborate with product and engineering teams
+Shift: (GMT+05:30) Asia/Kolkata (IST)
+
+Opportunity Type: Remote
+
+Placement Type: Full Time Permanent position(Payroll and Compliance to be managed by: Saxecap)
+
+(*Note: This is a requirement for one of Uplers' client - Saxecap)
+
+What do you need for this opportunity?
+
+Must have skills required:
+
+classical ML, Generative AI, LLM, Deep Learning, Fine Tuning, Model, NLP, Python
+
+Saxecap is Looking for:
+
+We are looking for a Machine Learning Engineer with strong foundations in machine learning and deep learning to build, fine-tune, and deploy ML models from scratch. This role is not focused on LLMs, prompt engineering, or GenAI. Instead, the emphasis is on ML algorithms, feature engineering, model optimization, and production ML systems.
+
+Key Responsibilities
+
+Design, build, train, and fine-tune machine learning models using traditional ML and deep learning techniques
+
+Work on supervised, unsupervised, and semi-supervised learning problems
+
+Perform feature engineering, feature selection, and data preprocessing on structured and semi-structured data
+
+Implement and optimize models such as:
+
+Linear / Logistic Regression
+
+Decision Trees, Random Forest, Gradient Boosting (XGBoost, LightGBM, CatBoost)
+
+SVM, k-NN, Naive Bayes
+
+Time-series and forecasting models (ARIMA, Prophet, LSTM if applicable)
+
+Build and fine-tune deep learning models (CNNs, RNNs, LSTMs, GRUs) where required
+
+Evaluate models using appropriate metrics and improve performance through hyperparameter tuning
+
+Deploy models into production and monitor performance, drift, and retraining needs
+
+Collaborate with data engineers, product, and business teams to translate requirements into ML solutions
+
+Why Join Saxecap 
+
+ Work directly with global leadership from Stanford, Harvard, and Wharton.
+ Build AI-first products that drive transformation across industries.
+ Opportunity to be an early member of a fast-growing India technology team.
+ Competitive compensation with performance-based variable pay.
+ Culture of ownership, autonomy, and collaboration — not hierarchy

@@ -7,7 +7,7 @@ from src.prompt_builder import build_analysis_prompt
 from src.llm import ask_ollama
 
 
-def run_pipeline(resume_text, jd_text, model="mistral", top_k=5):
+def run_pipeline(resume_text, jd_text, model="mistral", top_k=5, semantic_weight=0.7):
     """
     Full RAG pipeline: resume → analysis report.
     
@@ -41,8 +41,13 @@ def run_pipeline(resume_text, jd_text, model="mistral", top_k=5):
     
     print("[4/5] Retrieving relevant sections for JD...")
     jd_embedding = embed_single(jd_text)
-    retrieved = store.search(jd_embedding, top_k=top_k)
-    print(f"      → Top {top_k} chunks retrieved (scores: "
+    retrieved = store.search(
+        jd_embedding,
+        top_k=top_k,
+        query_text=jd_text,
+        semantic_weight=semantic_weight
+    )
+    print(f"      → Top {top_k} chunks retrieved (hybrid BM25 + semantic scores: "
           f"{[s for _, s in retrieved]})")
     
     print("[5/5] Generating analysis with LLM...")

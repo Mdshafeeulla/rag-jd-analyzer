@@ -41,44 +41,55 @@ def load_pdf(path):
         sys.exit(1)
 
 
-def load_file(path):
-    """Read a text or PDF file and return its contents."""
-    path = Path(path)
-    if not path.exists():
-        console.print(f"[red]Error: File not found: {path}[/red]")
-        sys.exit(1)
+def load_file(path_or_text, name="input"):
+    """Read a text/PDF file or accept literal pasted text."""
+    candidate = Path(path_or_text)
 
-    if path.suffix.lower() == ".pdf":
-        return load_pdf(path)
+    if candidate.exists():
+        if candidate.suffix.lower() == ".pdf":
+            return load_pdf(candidate)
 
-    if path.suffix.lower() not in {".txt", ".md", ".text"}:
-        console.print(
-            f"[red]Error: Unsupported file type {path.suffix}. "
-            "Use .txt, .md or .pdf files.[/red]"
-        )
-        sys.exit(1)
-
-    try:
-        with open(path, "r", encoding="utf-8") as f:
-            content = f.read().strip()
-        if not content:
-            console.print(f"[red]Error: {path} is empty. Please add content.[/red]")
+        if candidate.suffix.lower() not in {".txt", ".md", ".text"}:
+            console.print(
+                f"[red]Error: Unsupported file type {candidate.suffix}. "
+                "Use .txt, .md or .pdf files.[/red]"
+            )
             sys.exit(1)
-        return content
-    except UnicodeDecodeError:
+
         try:
-            with open(path, "r", encoding="utf-16") as f:
+            with open(candidate, "r", encoding="utf-8") as f:
                 content = f.read().strip()
             if not content:
-                console.print(f"[red]Error: {path} is empty. Please add content.[/red]")
+                console.print(f"[red]Error: {candidate} is empty. Please add content.[/red]")
                 sys.exit(1)
             return content
+        except UnicodeDecodeError:
+            try:
+                with open(candidate, "r", encoding="utf-16") as f:
+                    content = f.read().strip()
+                if not content:
+                    console.print(f"[red]Error: {candidate} is empty. Please add content.[/red]")
+                    sys.exit(1)
+                return content
+            except Exception as e:
+                console.print(f"[red]Error reading file {candidate}: {e}[/red]")
+                sys.exit(1)
         except Exception as e:
-            console.print(f"[red]Error reading file {path}: {e}[/red]")
+            console.print(f"[red]Error reading file {candidate}: {e}[/red]")
             sys.exit(1)
-    except Exception as e:
-        console.print(f"[red]Error reading file {path}: {e}[/red]")
+
+    # If the given value is not an existing file, treat it as raw text.
+    text = str(path_or_text).strip()
+    if not text:
+        console.print(f"[red]Error: {name} is empty.[/red]")
         sys.exit(1)
+
+    # If the value looks like a missing path and not like pasted content, fail.
+    if "\n" not in text and text.count(" ") < 3 and Path(text).suffix:
+        console.print(f"[red]Error: File not found: {text}[/red]")
+        sys.exit(1)
+
+    return text
 
 
 def display_results(result):
@@ -127,10 +138,24 @@ Examples:
         """
     )
     
-    parser.add_argument("--resume", required=True,  help="Path to your resume (.txt)")
-    parser.add_argument("--jd",     required=True,  help="Path to job description (.txt)")
-    parser.add_argument("--model",  default="mistral", help="Ollama model (default: mistral)")
-    parser.add_argument("--top_k",  default=5, type=int, help="Chunks to retrieve (default: 5)")
+    parser.add_argument(
+        "--resume",
+        required=True,
+        help="Resume input: file path (.txt, .md, .pdf) or pasted text."
+    )
+    parser.add_argument(
+        "--jd",
+        required=True,
+        help="Job description input: file path (.txt, .md, .pdf) or pasted text."
+    )
+    parser.add_argument("--model", default="mistral", help="Ollama model (default: mistral)")
+    parser.add_argument("--top_k", default=5, type=int, help="Chunks to retrieve (default: 5)")
+    parser.add_argument(
+        "--semantic_weight",
+        default=0.7,
+        type=float,
+        help="Semantic weighting for hybrid search (0.0 BM25-only, 1.0 semantic-only)"
+    )
     
     args = parser.parse_args()
     
@@ -149,12 +174,17 @@ Examples:
     console.print(f"  JD:     {len(jd_text.split())} words")
     
     # Run pipeline
+    if not 0.0 <= args.semantic_weight <= 1.0:
+        console.print("[red]Error: --semantic_weight must be between 0.0 and 1.0[/red]")
+        sys.exit(1)
+
     try:
         result = run_pipeline(
             resume_text=resume_text,
             jd_text=jd_text,
             model=args.model,
-            top_k=args.top_k
+            top_k=args.top_k,
+            semantic_weight=args.semantic_weight
         )
     except ConnectionError as e:
         console.print(f"\n[red]{e}[/red]")
