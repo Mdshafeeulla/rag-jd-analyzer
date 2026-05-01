@@ -3,8 +3,6 @@
 from sentence_transformers import SentenceTransformer
 import numpy as np
 
-# Load model once at module level — don't reload it on every call
-# First run downloads ~80MB. After that it's cached locally.
 print("Loading embedding model...")
 model = SentenceTransformer("all-MiniLM-L6-v2")
 print("Embedding model ready.")

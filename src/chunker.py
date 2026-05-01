@@ -33,8 +33,7 @@ def chunk_text(text, chunk_size=200, overlap=40):
 
 def chunk_by_sections(text):
     """
-    Alternative: split resume by natural sections (Experience, Skills, etc.)
-    Better for structured resumes.
+    Alternative: split resume by natural sections (Experience, Skills, etc.
     """
     # Common resume section headers
     section_keywords = [
@@ -63,8 +62,6 @@ def chunk_by_sections(text):
     
     return sections if sections else chunk_text(text)  # fallback to word chunks
 
-
-# ── Test it standalone ──────────────────────────────────────────────
 if __name__ == "__main__":
     sample = """
     John Doe - Data Analyst

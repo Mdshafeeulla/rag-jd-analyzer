@@ -6,10 +6,6 @@ def build_analysis_prompt(retrieved_chunks, job_description):
     Build the RAG prompt by injecting retrieved resume context
     into a structured analysis template.
     
-    This is the key RAG step:
-      retrieved_chunks = what was found in the knowledge base (resume)
-      job_description  = the query we searched against
-    
     The LLM is instructed to use ONLY the context — not its own
     training knowledge — to prevent hallucination.
     """
